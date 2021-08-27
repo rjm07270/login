@@ -1,0 +1,34 @@
+<?php
+   include('config.php');
+   session_start();
+
+   /* Let's check to see if:
+      1. the session has a logged in user
+      2. the logged in user is in the database
+
+    */
+
+
+   /* if the user is not logged in or is not valid,
+      redirect to the logout screen to clear out the session.
+    */
+    if(!isset($_SESSION['login_user'])){
+      //header("location: login.php");
+      echo "failed1232";
+    }else{
+      $hashedpassword= password_hash($form_password, PASSWORD_DEFAULT);
+	$username=$_SESSION['login_user'];
+      $sql="SELECT id FROM user_deets WHERE username='$username' AND passcode='";
+      $conn->query($sql);
+      $result = $conn->query($sql);
+      if ($result->num_rows<1) {
+        // code...
+        //header("location: login.php");
+	echo $result->num_rows;
+      echo "failed";
+      }
+      if(!mysqli_query($conn,$sql)){
+        echo "sql error ".mysqli_error($conn);
+      }
+    }
+?>
